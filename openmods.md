@@ -21,6 +21,12 @@ need it. This listing republishes one official UE4SS build, so it can be found o
 | The Blood of Dawnwalker | `dawnwalker_ue4ss_v3.0.1-1181-g83330635.zip` | `TheBloodOfDawnwalker` (the UE4SS team's) | Patch 2, 2026-10-22 |
 | Clair Obscur: Expedition 33 | `expedition33_ue4ss_v3.0.1-1181-g83330635.zip` | none: the UE4SS team has none, and the default settings work | 1.5.6 (Steam), 2026-10-23 |
 | Mortal Shell II | `mortalshell2_ue4ss_v3.0.1-1181-g83330635.zip` | `MortalShell2` (the UE4SS team's) | 1.12.0, 2026-10-23 |
+| Phantom Blade Zero | none yet: use the official `UE4SS_v3.0.1-1181-g83330635.zip` | none: the UE4SS team has none in `zCustomGameConfigs.zip` of this build | not tested yet |
+
+Phantom Blade Zero (release 2026-10-28, Unreal Engine 5, Steam app 4115450) is listed here, but not tested yet, and
+the release has no zip for it yet. A tested zip follows when UE4SS works in the game. Until then, use the official
+`UE4SS_v3.0.1-1181-g83330635.zip` from the release. `zCustomGameConfigs.zip` of this build has no config for the game,
+so UE4SS runs with its default settings. It may not work with the game yet.
 
 ## Screenshots
 
@@ -34,6 +40,8 @@ need it. This listing republishes one official UE4SS build, so it can be found o
    - The Blood of Dawnwalker: `Dawnwalker\Binaries\Win64\`, next to `Dawnwalker.exe`.
    - Clair Obscur: Expedition 33: `Sandfall\Binaries\Win64\`, next to `SandFall-Win64-Shipping.exe`.
    - Mortal Shell II: `MortalShell2\Binaries\Win64\`, next to `MortalShell2-Win64-Shipping.exe`.
+   - Phantom Blade Zero: not tested yet, so its folder and exe are not named here. Unpack the official zip into the
+     game's `Binaries\Win64\` folder that holds the game's exe.
 
    You then have `Win64\dwmapi.dll` and the folder `Win64\ue4ss\`.
 4. Start the game. UE4SS writes its log to `Win64\ue4ss\UE4SS.log`.
@@ -59,6 +67,9 @@ the game's `Content\Paks\LogicMods\` folder (BPModLoaderMod; `Dawnwalker\Content
   load, the helper mods, and UE4SS's header and mapping dumps.
 - Mortal Shell II: 1.12.0 (Unreal Engine 5.6). Tested on 2026-10-23: game start, save load, the helper mods, and
   UE4SS's header dump.
+- Phantom Blade Zero: not tested yet (release 2026-10-28, Unreal Engine 5, Steam app 4115450). Until a tested zip
+  follows, use the official `UE4SS_v3.0.1-1181-g83330635.zip`; the UE4SS team has no config for the game in
+  `zCustomGameConfigs.zip` of this build.
 - Other games are not tested here. For them, use the official `UE4SS_v3.0.1-1181-g83330635.zip` with your game's
   config from `zCustomGameConfigs.zip`, if the UE4SS team has one.
 - A game update can need a new UE4SS build or config. Then check the
