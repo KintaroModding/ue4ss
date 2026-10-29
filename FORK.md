@@ -1,16 +1,34 @@
 # About this fork
 
 This repository is a fork of [RE-UE4SS](https://github.com/UE4SS-RE/RE-UE4SS) by the UE4SS-RE team and its
-contributors (MIT license, see [LICENSE](LICENSE)). It exists so that one official UE4SS build, with a ready package
-for each tested game, can be listed on [openmods](https://openmods.nexus), which reads `openmods.json` and
-`openmods.md` from the default branch of a GitHub repository. Its first name was `dawnwalker_ue4ss`; since
-2026-10-23 it is `ue4ss`, one listing for all tested games.
+contributors (MIT license, see [LICENSE](LICENSE)). It exists so that official UE4SS builds, with a ready package for
+each tested game, can be listed on [openmods](https://openmods.nexus), which reads `openmods.json` and `openmods.md`
+from the default branch of a GitHub repository. Its first name was `dawnwalker_ue4ss`; since 2026-10-23 it is
+`ue4ss`, one listing for all tested games.
 
 - The branch `release` starts at upstream commit
   [`8333063595fa3c49ad307f3b0f732accbb760d25`](https://github.com/UE4SS-RE/RE-UE4SS/commit/8333063595fa3c49ad307f3b0f732accbb760d25)
-  (2026-10-17), the source of the official `experimental-latest` build `UE4SS_v3.0.1-1181-g83330635.zip`.
+  (2026-10-17), the source of the official `experimental-latest` build `UE4SS_v3.0.1-1181-g83330635.zip`. Since
+  2026-10-29 it also holds upstream commit
+  [`cdbc0b66cb2bb5b4a3d2f69b6e61a8460961e54c`](https://github.com/UE4SS-RE/RE-UE4SS/commit/cdbc0b66cb2bb5b4a3d2f69b6e61a8460961e54c)
+  (merged; 2026-10-23), the source of `UE4SS_v3.0.1-1183-gcdbc0b66.zip`.
 - The UE4SS code is unchanged. This fork adds only `FORK.md`, `openmods.json`, `openmods.md` and the cover image
   `docs/cover.png`. It is unofficial: the UE4SS team did not make it and does not support it.
+- The release `v3.0.1-1183-gcdbc0b66` (2026-10-29) holds:
+  - `UE4SS_v3.0.1-1183-gcdbc0b66.zip` and `zCustomGameConfigs.zip`: the official files of that build, unchanged.
+    (`zCustomGameConfigs.zip` of 1183 holds the same 191 files as the one of 1181; only the dates in the zip differ.)
+  - `phantombladezero_ue4ss_v3.0.1-1183-gcdbc0b66.zip`: the official UE4SS 1183 zip with our config `PhantomBladeZero`
+    copied over its `ue4ss\` folder:
+    - `UE4SS_Signatures\GUObjectArray.lua` (from the official configs `MetalGearSolidDelta` and `Split Fiction`) and
+      `UE4SS_Signatures\GNatives.lua` (from the official config `Far Far West`): the UE4SS team's code, unchanged,
+      with a comment on top that names the source;
+    - `MemberVariableLayout.ini` (ours): the game's layout of `FUObjectArray`, `TUObjectArray`, `UStruct`, `UClass`,
+      `UFunction`, `UScriptStruct`, `FField` and `FFieldClass`, read from the running game;
+    - `Mods\Keybinds\Scripts\main.lua`: the official file with one line changed (below).
+  - `dawnwalker_ue4ss_v3.0.1-1181-g83330635.zip`, `expedition33_ue4ss_v3.0.1-1181-g83330635.zip`,
+    `mortalshell2_ue4ss_v3.0.1-1181-g83330635.zip` and `UE4SS_v3.0.1-1181-g83330635.zip`: byte for byte the files of
+    the release `v3.0.1-1181-g83330635`, for the games tested with that build.
+  - `SHA256SUMS.txt`.
 - The release `v3.0.1-1181-g83330635` holds:
   - `UE4SS_v3.0.1-1181-g83330635.zip` and `zCustomGameConfigs.zip`: the official files of that build, unchanged.
   - `dawnwalker_ue4ss_v3.0.1-1181-g83330635.zip`: the official UE4SS zip with the official `TheBloodOfDawnwalker`
@@ -32,3 +50,5 @@ for each tested game, can be listed on [openmods](https://openmods.nexus), which
 | 2026-10-23 | v3.0.1-1181-g83330635 | A cover that fits every game page; no code change | `docs/cover.png` |
 | 2026-10-23 | v3.0.1-1181-g83330635 | Mortal Shell II added; no code change | `FORK.md`, `openmods.json`, `openmods.md` |
 | 2026-10-27 | v3.0.1-1181-g83330635 | Phantom Blade Zero listed, not tested yet and without a zip; no code change | `FORK.md`, `openmods.json`, `openmods.md` |
+| 2026-10-29 | v3.0.1-1183-gcdbc0b66 | Upstream `cdbc0b66` merged (build 1183); Phantom Blade Zero tested, with its zip and our config; no code change | `FORK.md`, `openmods.json`, `openmods.md` |
+| 2026-10-29 | v3.0.1-1183-gcdbc0b66 | In the Phantom Blade Zero zip only: the Keybinds helper's Ctrl+Num6 calls `DumpUSMAP(false)` instead of `DumpUSMAP()` (no Blueprint-generated types; with them UE4SS's mapping dump crashes this game), with a comment line above it | `ue4ss/Mods/Keybinds/Scripts/main.lua` in `phantombladezero_ue4ss_v3.0.1-1183-gcdbc0b66.zip` |
