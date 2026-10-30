@@ -10,7 +10,8 @@ need it. This listing republishes official UE4SS builds, so they can be found on
 
 - UE4SS `v3.0.1-1183-gcdbc0b66`: the official `experimental-latest` build of 2026-10-25 (commit
   [`cdbc0b66`](https://github.com/UE4SS-RE/RE-UE4SS/commit/cdbc0b66cb2bb5b4a3d2f69b6e61a8460961e54c)), for Phantom
-  Blade Zero.
+  Blade Zero. The release `v3.0.1-1183-gcdbc0b66-r2` is the second package of this build for the game (Blueprint
+  mods, below); the UE4SS files stay the same.
 - UE4SS `v3.0.1-1181-g83330635`: the official `experimental-latest` build of 2026-10-17 (commit
   [`83330635`](https://github.com/UE4SS-RE/RE-UE4SS/commit/8333063595fa3c49ad307f3b0f732accbb760d25)), for the games
   tested with it; their zips stay unchanged. The stable UE4SS releases (v3.0.1 from 2024) are too old for many Unreal
@@ -25,7 +26,7 @@ need it. This listing republishes official UE4SS builds, so they can be found on
 | The Blood of Dawnwalker | `dawnwalker_ue4ss_v3.0.1-1181-g83330635.zip` | `TheBloodOfDawnwalker` (the UE4SS team's) | Patch 2, 2026-10-22 |
 | Clair Obscur: Expedition 33 | `expedition33_ue4ss_v3.0.1-1181-g83330635.zip` | none: the UE4SS team has none, and the default settings work | 1.5.6 (Steam), 2026-10-23 |
 | Mortal Shell II | `mortalshell2_ue4ss_v3.0.1-1181-g83330635.zip` | `MortalShell2` (the UE4SS team's) | 1.12.0, 2026-10-23 |
-| Phantom Blade Zero | `phantombladezero_ue4ss_v3.0.1-1183-gcdbc0b66.zip` | `PhantomBladeZero` (ours, below) | Release (Steam build 26266538), 2026-10-29 |
+| Phantom Blade Zero | `phantombladezero_ue4ss_v3.0.1-1183-gcdbc0b66-r2.zip` | `PhantomBladeZero` (ours, below) | Release (Steam build 26266538), 2026-10-29 and 2026-10-30 |
 
 ### Phantom Blade Zero
 
@@ -42,6 +43,11 @@ to `ue4ss\`, worked out with tests in the running game:
 - `Mods\Keybinds\Scripts\main.lua`: one line changed. Ctrl+Num6 writes the mapping file without Blueprint-generated
   types (`DumpUSMAP(false)`): with them, UE4SS crashes this game, because two of the game's AI Blueprints have enum
   properties without an enum.
+- `Mods\BPModLoaderMod\Scripts\main.lua` (since `-r2`): the official file with a fallback. UE4SS's
+  `IterateGameDirectories` expects the exe in `<Game>\Binaries\Win64\` and finds nothing in this game, so
+  BPModLoaderMod stopped. Now, only when that happens, the script finds `ProjectPBZ\Content\Paks\LogicMods\` from
+  its own path and lists it with Windows' `dir`. The rest of the script is unchanged. The UE4SS team has announced a
+  fix of `IterateGameDirectories` ([UE4SS-RE/RE-UE4SS#1483](https://github.com/UE4SS-RE/RE-UE4SS/issues/1483)).
 
 ## Screenshots
 
@@ -72,8 +78,9 @@ UE4SS mods go into `ue4ss\Mods\<mod name>\` next to the game's exe. A mod with a
 starts by itself; other mods are listed in `ue4ss\Mods\mods.txt`. The build comes with UE4SS's own helper mods: the
 game console on `~`, `^` or `F10` (ConsoleEnablerMod), the cheat manager (CheatManagerEnablerMod), a loader for
 Blueprint mods in the game's `Content\Paks\LogicMods\` folder (BPModLoaderMod; `Dawnwalker\Content\Paks\LogicMods\`,
-`Sandfall\Content\Paks\LogicMods\` or `MortalShell2\Content\Paks\LogicMods\`; not in Phantom Blade Zero, see Known
-issues), and keys for dumps (Keybinds: Ctrl+H the C++ headers, Ctrl+Num6 the mapping file).
+`Sandfall\Content\Paks\LogicMods\`, `MortalShell2\Content\Paks\LogicMods\` or `ProjectPBZ\Content\Paks\LogicMods\`;
+for Phantom Blade Zero see Known issues), and keys for dumps (Keybinds: Ctrl+H the C++ headers, Ctrl+Num6 the
+mapping file).
 
 ## Compatibility
 
@@ -86,7 +93,8 @@ issues), and keys for dumps (Keybinds: Ctrl+H the C++ headers, Ctrl+Num6 the map
 - Phantom Blade Zero: the release version (Steam build 26266538, `PBZ.exe` `CL-301524_JKS-17219`; Unreal Engine
   5.7.4). The game shows no version number. Tested on 2026-10-29: game start, save load, the helper mods, UE4SS's
   header dump (Ctrl+H) and mapping dump (Ctrl+Num6), and a Lua test mod that reads and writes the player's health and
-  calls one of the game's functions.
+  calls one of the game's functions. Tested on 2026-10-30 (`-r2`): BPModLoaderMod starts without a `LogicMods`
+  folder, and with one it lists the folder, reads a mod's `config.lua` and tries to load the mod at every level load.
 - Other games are not tested here. For them, use the official `UE4SS_v3.0.1-1183-gcdbc0b66.zip` with your game's
   config from `zCustomGameConfigs.zip`, if the UE4SS team has one.
 - A game update can need a new UE4SS build or config. Then check the
@@ -101,8 +109,11 @@ issues), and keys for dumps (Keybinds: Ctrl+H the C++ headers, Ctrl+Num6 the map
   and the game keeps running, but no mapping file is made. The log also says that UE4SS's quick object lookup failed
   its self test; UE4SS then uses its slower lookup, which works.
 - Phantom Blade Zero:
-  - Blueprint mods (`ProjectPBZ\Content\Paks\LogicMods\`) do not load: BPModLoaderMod stops ("the directory structure
-    is unknown"), because the game's exe is not in `<Game>\Binaries\Win64\`. Lua mods work.
+  - Blueprint mods (`ProjectPBZ\Content\Paks\LogicMods\`): BPModLoaderMod now finds them through our fallback (see
+    above). A real Blueprint mod is not tested yet: the test had a mod folder with only a `config.lua`, so there was
+    nothing to spawn. Please report how a Blueprint mod works for you.
+  - With a `LogicMods` folder, a console window flashes once at game start: that is the `dir` that lists the folder.
+    Without the folder, nothing shows.
   - The log says that UE4SS could not hook `ProcessConsoleExec`. Console commands that UE4SS mods add may not work
     (not tested).
   - The mapping file holds native types only (the Ctrl+Num6 change above).

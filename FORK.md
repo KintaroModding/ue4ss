@@ -14,6 +14,10 @@ from the default branch of a GitHub repository. Its first name was `dawnwalker_u
   (merged; 2026-10-23), the source of `UE4SS_v3.0.1-1183-gcdbc0b66.zip`.
 - The UE4SS code is unchanged. This fork adds only `FORK.md`, `openmods.json`, `openmods.md` and the cover image
   `docs/cover.png`. It is unofficial: the UE4SS team did not make it and does not support it.
+- The release `v3.0.1-1183-gcdbc0b66-r2` (2026-10-30) is the same build with a second Phantom Blade Zero package:
+  - `phantombladezero_ue4ss_v3.0.1-1183-gcdbc0b66-r2.zip`: the package of `v3.0.1-1183-gcdbc0b66` (below) plus
+    `Mods\BPModLoaderMod\Scripts\main.lua`, the official file with a fallback for the game's folder layout (Changes).
+  - All other files byte for byte the files of the release `v3.0.1-1183-gcdbc0b66`.
 - The release `v3.0.1-1183-gcdbc0b66` (2026-10-29) holds:
   - `UE4SS_v3.0.1-1183-gcdbc0b66.zip` and `zCustomGameConfigs.zip`: the official files of that build, unchanged.
     (`zCustomGameConfigs.zip` of 1183 holds the same 191 files as the one of 1181; only the dates in the zip differ.)
@@ -52,3 +56,4 @@ from the default branch of a GitHub repository. Its first name was `dawnwalker_u
 | 2026-10-27 | v3.0.1-1181-g83330635 | Phantom Blade Zero listed, not tested yet and without a zip; no code change | `FORK.md`, `openmods.json`, `openmods.md` |
 | 2026-10-29 | v3.0.1-1183-gcdbc0b66 | Upstream `cdbc0b66` merged (build 1183); Phantom Blade Zero tested, with its zip and our config; no code change | `FORK.md`, `openmods.json`, `openmods.md` |
 | 2026-10-29 | v3.0.1-1183-gcdbc0b66 | In the Phantom Blade Zero zip only: the Keybinds helper's Ctrl+Num6 calls `DumpUSMAP(false)` instead of `DumpUSMAP()` (no Blueprint-generated types; with them UE4SS's mapping dump crashes this game), with a comment line above it | `ue4ss/Mods/Keybinds/Scripts/main.lua` in `phantombladezero_ue4ss_v3.0.1-1183-gcdbc0b66.zip` |
+| 2026-10-30 | v3.0.1-1183-gcdbc0b66-r2 | In the Phantom Blade Zero zip only: BPModLoaderMod gets a fallback. When `IterateGameDirectories` returns nil (the game's exe is in `platform\steam\`, not in `<Game>\Binaries\Win64\`), the script finds `ProjectPBZ\Content\Paks` from its own path, checks `LogicMods` with `io.open` and lists it with `io.popen("dir /b /s /a-d ...")`, as a table of the same shape. The official code path is unchanged and runs first; comment lines name the reason | `ue4ss/Mods/BPModLoaderMod/Scripts/main.lua` in `phantombladezero_ue4ss_v3.0.1-1183-gcdbc0b66-r2.zip` |
