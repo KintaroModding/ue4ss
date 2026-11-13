@@ -8,14 +8,12 @@ game: UE4SS plus that game's config.
 UE4SS (Unreal Engine 4/5 Scripting System) loads Lua and C++ mods into Unreal Engine games while they run. Many mods
 need it. This listing republishes official UE4SS builds, so they can be found on openmods:
 
-- UE4SS `v3.0.1-1195-g1ceefac8`: the official `experimental-latest` build of 2026-11-01 (commit
-  [`1ceefac8`](https://github.com/UE4SS-RE/RE-UE4SS/commit/1ceefac8b8c286f0fb3eb62b4aae075ff81df0bd)), for Phantom
-  Blade Zero. It finds Blueprint mods in this game by itself and writes the full mapping file, so the package changes
-  no UE4SS mod any more: only the config below (the earlier releases stay on GitHub).
+- UE4SS `v4.0.0`: the official release of 2026-11-12 (commit
+  [`30afe5ff`](https://github.com/UE4SS-RE/RE-UE4SS/commit/30afe5fff94a94c2313e220b2002059a080da9a0)), for Phantom
+  Blade Zero. The package changes no UE4SS file; it only adds the config below (the earlier releases stay on GitHub).
 - UE4SS `v3.0.1-1181-g83330635`: the official `experimental-latest` build of 2026-10-17 (commit
   [`83330635`](https://github.com/UE4SS-RE/RE-UE4SS/commit/8333063595fa3c49ad307f3b0f732accbb760d25)), for the games
-  tested with it; their zips stay unchanged. The stable UE4SS releases (v3.0.1 from 2024) are too old for many Unreal
-  Engine 5 games.
+  tested with it; their zips stay unchanged.
 - One ready zip per tested game: the official UE4SS files, plus the UE4SS team's own config for that game when the
   team has one (from `zCustomGameConfigs.zip`), or our own config where the game needs one (Phantom Blade Zero, below).
 - Nothing else: UE4SS itself is not changed, and no mod is added. The official files of both builds are attached to
@@ -26,7 +24,7 @@ need it. This listing republishes official UE4SS builds, so they can be found on
 | The Blood of Dawnwalker | `dawnwalker_ue4ss_v3.0.1-1181-g83330635.zip` | `TheBloodOfDawnwalker` (the UE4SS team's) | Patch 2, 2026-10-22 |
 | Clair Obscur: Expedition 33 | `expedition33_ue4ss_v3.0.1-1181-g83330635.zip` | none: the UE4SS team has none, and the default settings work | 1.5.6 (Steam), 2026-10-23 |
 | Mortal Shell II | `mortalshell2_ue4ss_v3.0.1-1181-g83330635.zip` | `MortalShell2` (the UE4SS team's) | 1.12.0, 2026-10-23 |
-| Phantom Blade Zero | `phantombladezero_ue4ss_v3.0.1-1195-g1ceefac8.zip` | `PhantomBladeZero` (ours, below) | Release (Steam build 26266538), 2026-10-29 to 2026-11-01 |
+| Phantom Blade Zero | `phantombladezero_ue4ss_v4.0.0.zip` | `PhantomBladeZero` (ours, below) | Steam build 26367565, 2026-11-13 (earlier builds: 2026-10-29 to 2026-11-04) |
 
 ### Phantom Blade Zero
 
@@ -41,10 +39,14 @@ to `ue4ss\`, worked out with tests in the running game:
   `UStruct` and the types built on it (`UClass`, `UFunction`, `UScriptStruct`), and of `FField` and `FFieldClass`. Every
   other type matches UE4SS's Unreal Engine 5.7 layout.
 
-Everything else in the zip is the official UE4SS 1195, also BPModLoaderMod and Keybinds. 1188 fixed the folder search
-for Blueprint mods (`IterateGameDirectories`), and 1195 fixed the mapping dump with Blueprint-generated types, which
-crashed this game before ([UE4SS-RE/RE-UE4SS#1483](https://github.com/UE4SS-RE/RE-UE4SS/issues/1483)). So the
-earlier packages' changes of BPModLoaderMod (`-r2`) and of Keybinds (Ctrl+Num6 with native types only) are gone.
+Everything else in the zip is the official UE4SS v4.0.0, also BPModLoaderMod and Keybinds. 1188 fixed the folder
+search for Blueprint mods (`IterateGameDirectories`), and 1195 fixed the mapping dump with Blueprint-generated types,
+which crashed this game before ([UE4SS-RE/RE-UE4SS#1483](https://github.com/UE4SS-RE/RE-UE4SS/issues/1483)); v4.0.0
+keeps both fixes.
+
+The UE4SS team took this config into UE4SS itself
+([UE4SS-RE/RE-UE4SS#1484](https://github.com/UE4SS-RE/RE-UE4SS/pull/1484), merged on 2026-11-12, the same files). It
+was merged after the v4.0.0 release, so the official v4.0.0 does not contain it yet; the next official release will.
 
 ## Screenshots
 
@@ -93,11 +95,14 @@ and keys for dumps (Keybinds: Ctrl+H the C++ headers, Ctrl+Num6 the mapping file
   start, save load, BPModLoaderMod finds a `LogicMods` folder by itself, reads a mod's `config.lua` and tries to load
   the mod at every level load, and `UObject:CallFunction` with a UFunction works. Tested on 2026-11-01 with UE4SS
   1195 and this zip: game start, save load, the helper mods, Lua mods, and the full mapping dump (Ctrl+Num6): no
-  crash, four enum properties of the game without an enum are written as numbers, as UE4SS logs.
-- Other games are not tested here. For them, use the official `UE4SS_v3.0.1-1195-g1ceefac8.zip` with your game's
-  config from `zCustomGameConfigs.zip`, if the UE4SS team has one.
+  crash, four enum properties of the game without an enum are written as numbers, as UE4SS logs. After the game
+  update of 2026-11-04 (Steam build 26367565, `CL-302256_JKS-17280`) the 1195 zip was checked again: the same start,
+  no new error. Tested on 2026-11-13 with UE4SS v4.0.0 and this zip on Steam build 26367565: game start, save load,
+  our two signatures found their functions, a UE4SS C++ mod and a script pak mod worked.
+- Other games are not tested here. For them, use the official `UE4SS_v4.0.0.zip` with your game's config from
+  `zCustomGameConfigs.zip`, if the UE4SS team has one.
 - A game update can need a new UE4SS build or config. Then check the
-  [UE4SS releases](https://github.com/UE4SS-RE/RE-UE4SS/releases/tag/experimental-latest) for a newer build.
+  [UE4SS releases](https://github.com/UE4SS-RE/RE-UE4SS/releases) for a newer build.
 
 ## Known issues
 
@@ -114,7 +119,7 @@ and keys for dumps (Keybinds: Ctrl+H the C++ headers, Ctrl+Num6 the mapping file
   - The log says that UE4SS could not hook `ProcessConsoleExec`. Console commands that UE4SS mods add may not work
     (not tested).
   - A game update can change the exe; then the patterns or the layout in our config may need an update.
-- This is an experimental build of UE4SS. Report problems with UE4SS itself to the
+- The 1181 build of the other games is an experimental build of UE4SS. Report problems with UE4SS itself to the
   [UE4SS issues](https://github.com/UE4SS-RE/RE-UE4SS/issues), and problems with these packages here.
 
 ## How to build

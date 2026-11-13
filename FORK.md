@@ -15,9 +15,23 @@ from the default branch of a GitHub repository. Its first name was `dawnwalker_u
   [`f885e8d2d4dd25258082538f1a9fd56a1c3b1bf1`](https://github.com/UE4SS-RE/RE-UE4SS/commit/f885e8d2d4dd25258082538f1a9fd56a1c3b1bf1)
   (merged; 2026-10-30), the source of `UE4SS_v3.0.1-1188-gf885e8d2.zip`, and since 2026-11-01 upstream commit
   [`1ceefac8b8c286f0fb3eb62b4aae075ff81df0bd`](https://github.com/UE4SS-RE/RE-UE4SS/commit/1ceefac8b8c286f0fb3eb62b4aae075ff81df0bd)
-  (merged; 2026-11-01), the source of `UE4SS_v3.0.1-1195-g1ceefac8.zip`.
+  (merged; 2026-11-01), the source of `UE4SS_v3.0.1-1195-g1ceefac8.zip`, and since 2026-11-13 upstream commit
+  [`30afe5fff94a94c2313e220b2002059a080da9a0`](https://github.com/UE4SS-RE/RE-UE4SS/commit/30afe5fff94a94c2313e220b2002059a080da9a0)
+  (merged; tag `v4.0.0`, 2026-11-12), the source of `UE4SS_v4.0.0.zip`, the official release v4.0.0.
 - The UE4SS code is unchanged. This fork adds only `FORK.md`, `openmods.json`, `openmods.md` and the cover image
   `docs/cover.png`. It is unofficial: the UE4SS team did not make it and does not support it.
+- The release `v4.0.0` (2026-11-13) holds:
+  - `UE4SS_v4.0.0.zip` and `zCustomGameConfigs.zip`: the files of the official UE4SS release v4.0.0, unchanged.
+    (Against 1195, the files of a game install differ only in `dwmapi.dll`, `ue4ss\UE4SS.dll` and
+    `ue4ss\Mods\BPModLoaderMod\Scripts\main.lua`, and `ue4ss\Mods\mods.json` is gone; `zCustomGameConfigs.zip` holds
+    193 files.)
+  - `phantombladezero_ue4ss_v4.0.0.zip`: the official UE4SS v4.0.0 zip with our config `PhantomBladeZero` copied over
+    its `ue4ss\` folder: the same two signature files and `MemberVariableLayout.ini` as in 1195. The UE4SS team took
+    this config into UE4SS ([UE4SS-RE/RE-UE4SS#1484](https://github.com/UE4SS-RE/RE-UE4SS/pull/1484), merged on
+    2026-11-12, byte for byte the same files), but after the v4.0.0 release, so v4.0.0 does not contain it yet.
+  - The three 1181 game zips and `UE4SS_v3.0.1-1181-g83330635.zip`: byte for byte the files of the release
+    `v3.0.1-1181-g83330635`.
+  - `SHA256SUMS.txt`.
 - The release `v3.0.1-1195-g1ceefac8` (2026-11-01) holds:
   - `UE4SS_v3.0.1-1195-g1ceefac8.zip` and `zCustomGameConfigs.zip`: the official files of that build, unchanged.
     (1195 differs from 1188 only in `dwmapi.dll` and `ue4ss\UE4SS.dll`; `zCustomGameConfigs.zip` holds the same 191
@@ -87,3 +101,4 @@ from the default branch of a GitHub repository. Its first name was `dawnwalker_u
 | 2026-10-31 | v3.0.1-1188-gf885e8d2 | In the Phantom Blade Zero zip: the BPModLoaderMod fallback of `-r2` removed, the official file again; the Keybinds change stays | `ue4ss/Mods/BPModLoaderMod/Scripts/main.lua` in `phantombladezero_ue4ss_v3.0.1-1188-gf885e8d2.zip` |
 | 2026-11-01 | v3.0.1-1195-g1ceefac8 | Upstream `1ceefac8` merged (build 1195, with the mapping dump fix for enum properties without an enum, UE4SS-RE/RE-UE4SS#1483); Phantom Blade Zero tested with it; no code change | `FORK.md`, `openmods.md` |
 | 2026-11-01 | v3.0.1-1195-g1ceefac8 | In the Phantom Blade Zero zip: the Keybinds change removed, the official file again (Ctrl+Num6 = `DumpUSMAP()` with Blueprint-generated types); our config is now only the signatures and `MemberVariableLayout.ini` | `ue4ss/Mods/Keybinds/Scripts/main.lua` in `phantombladezero_ue4ss_v3.0.1-1195-g1ceefac8.zip` |
+| 2026-11-13 | v4.0.0 | Upstream `30afe5ff` merged (the official release v4.0.0); Phantom Blade Zero tested with it on Steam build 26367565; the same config; no code change | `FORK.md`, `openmods.json`, `openmods.md` |
