@@ -370,11 +370,41 @@ namespace RC::LuaType
         }
     }
 
+    static auto is_valid_uobject(Unreal::UObject* object) -> bool
+    {
+        if (!object || object == LuaMadeSimple::Type::special_invalid_ptr())
+        {
+            return false;
+        }
+
+        // GetObjectItem resolves the object's internal index through GUObjectArray.
+        // Validate the slot and verify its pointer before using any UObject virtual/type data.
+        Unreal::FUObjectItem* object_item = object->GetObjectItem();
+        if (!object_item || !Unreal::UObjectArray::IsValid(object_item, false) || object_item->GetUObject() != object ||
+            object_item->IsUnreachable())
+        {
+            return false;
+        }
+
+        // A slot can exist while UObject construction is still incomplete.
+        Unreal::UClass* object_class = object->GetClassPrivate();
+        if (!object_class || object_class == LuaMadeSimple::Type::special_invalid_ptr())
+        {
+            return false;
+        }
+
+        Unreal::FUObjectItem* class_item = object_class->GetObjectItem();
+        return class_item && Unreal::UObjectArray::IsValid(class_item, false) && class_item->GetUObject() == object_class &&
+               !class_item->IsUnreachable();
+    }
+
     auto auto_construct_object(const LuaMadeSimple::Lua& lua, Unreal::UObject* object) -> void
     {
-        // If the UObject is nullptr (which is valid), then construct an empty Lua object to enable chaining
-        if (!object)
+        // UObject property values can outlive their targets. Validate the GUObjectArray item
+        // before calling IsA, which dereferences the object's class pointer.
+        if (!is_valid_uobject(object))
         {
+            // A null/invalid UObject is represented as an empty Lua object to allow safe chaining.
             UObject::construct(lua, nullptr);
         }
         else if (object->IsA<Unreal::UFunction>())
@@ -443,6 +473,10 @@ namespace RC::LuaType
         // We're already setup for the alternate branch inside the get_property_vc() function
         // We don't need to supply a property name because the alternate branch has already been told about the property from the push_unreal_object() function()
         Unreal::UObject** property_value = static_cast<Unreal::UObject**>(params.data);
+        if (!property_value)
+        {
+            params.throw_error("push_objectproperty", "data pointer is nullptr");
+        }
 
         // Finally construct the Lua object
         switch (params.operation)
